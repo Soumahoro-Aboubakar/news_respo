@@ -8,7 +8,7 @@ const router = express.Router();
 // Route pour ajouter des nouvelles en utilisant insertMany
 router.post('/add-news', async (req, res) => {
     //  console.log("en cours d'execution", req.body)
-
+  console.log(req.body , " req.bodyreq.body")
     try {
         /*   [
                 {

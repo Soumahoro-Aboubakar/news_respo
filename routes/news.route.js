@@ -7,13 +7,10 @@ const router = express.Router();
 
 // Route pour ajouter des nouvelles en utilisant insertMany
 router.post('/add-news', async (req, res) => {
-  //  console.log("en cours d'execution", req.body)
+    //  console.log("en cours d'execution", req.body)
 
-/*     console.log("en cours d'execution", JSON.stringify(req.body))
     try {
-        const newsArray = req.body;  // Attendez-vous à recevoir un tableau d'articles
-        const result = await Article.insertMany(
-            [
+        /*   [
                 {
                     title: "Les lunettes de réalité augmentée font leur retour chez Google",
                     description: "Google relance ses lunettes de réalité augmentée après l'abandon des Google Glass en 2023.",
@@ -142,16 +139,17 @@ router.post('/add-news', async (req, res) => {
                     liker: 0,
                     dislike: 0
                 }]
-             
-            ); // Insère plusieurs articles
-        console.log("enregistrement reussi : ",result)
+              */
+        const newsArray = req.body;  // Attendez-vous à recevoir un tableau d'articles
+        const result = await Article.insertMany(req.body); // Insère plusieurs articles
+        console.log("enregistrement reussi : ", result)
         res.status(201).json({ message: 'Articles ajoutés avec succès', data: result });
     } catch (err) {
         console.log('====================================');
         console.log(err.message);
         console.log('====================================');
         res.status(500).json({ message: 'Erreur lors de l\'ajout des articles', error: err });
-    } */
+    }
 });
 
 // Route pour récupérer toutes les nouvelles
@@ -159,7 +157,7 @@ router.get('/all-news', async (req, res) => {
     console.log("Nous fetchons les information")
     try {
         const news = await Article.find();  // Récupère tous les articles
-      
+
         res.status(200).send(news);
     } catch (err) {
         console.log(err.message)
@@ -171,12 +169,12 @@ router.get('/all-news', async (req, res) => {
 router.get('/news/:id', async (req, res) => {
     const { id } = req.params;
     console.log('====================================');
-    console.log(id , "  id000");
+    console.log(id, "  id000");
     console.log('====================================');
     try {
         const news = await Article.findById(id);  // Recherche une news avec l'ID
         console.log('====================================');
-        console.log(news , " news");
+        console.log(news, " news");
         console.log('====================================');
         if (!news) {
             return res.status(404).json({ message: 'Article non trouvé' });
